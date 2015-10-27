@@ -1,0 +1,75 @@
+<!doctype html>
+<html class="no-js" ng-app="cpslobooks" ng-controller="IndexCtrl">
+  <head>
+      <meta charset="utf-8">
+      <title>Cal Poly Books</title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width">
+      <link rel="shortcut icon" href="/favicon.ico">
+      <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+      <!-- build:css styles/vendor.css -->
+      <!-- bower:css -->
+      <!-- endbower -->
+      <!-- endbuild -->
+      <!-- build:css(.tmp) styles/app.css -->
+      <link rel="stylesheet" href="/css/app.css">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- endbuild -->
+      <script src='https://cdn.firebase.com/js/client/1.1.0/firebase.js'></script>
+      <script src="https://cdn.firebase.com/js/simple-login/1.6.4/firebase-simple-login.js"></script>
+  </head>
+  <body>
+    <div ui-view></div>
+
+    <div class="bg-image">
+    </div>
+
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js scripts/plugins.js -->
+    <script type="text/javascript" src="/bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-facebook/lib/angular-facebook.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-ui-select/dist/select.min.js"></script>
+    <script type="text/javascript" src="/bower_components/strophe/strophe.js"></script>
+    <!-- <script type="text/javascript" src="bower_components/angular-animate/angular-animate.js"></script>
+    <script type="text/javascript" src="bower_components/angular-resource/angular-resource.js"></script>
+    <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-utils/ui-utils.js"></script>-->
+    <script type="text/javascript" src="//localhost:35729/livereload.js" data-remove="true"></script>
+    <!-- endbuild -->
+
+    <!-- build:js({app,.tmp}) scripts/main.js -->
+    <script type="text/javascript" src="/scripts/app.js"></script>
+    <script type="text/javascript" src="/scripts/buy.js"></script>
+    <script type="text/javascript" src="/scripts/sell.js"></script>
+    <script type="text/javascript" src="/scripts/book.js"></script>
+    <script type="text/javascript" src="/scripts/mybooks.js"></script>
+    <script type="text/javascript" src="/service/courses.js"></script>
+    <script type="text/javascript" src="/service/books.js"></script>
+    <script type="text/javascript" src="/service/account.js"></script>
+    <script type="text/javascript" src="/directive/parallax.js"></script>
+    <!-- endbuild -->
+
+    <script type="text/javascript">
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '573828199385148',
+          xfbml      : false,
+          version    : 'v2.1'
+        });
+      };
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
+  </body>
+</html>

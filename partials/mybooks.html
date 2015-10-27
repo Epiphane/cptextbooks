@@ -1,0 +1,49 @@
+<h1 class="title text-center">My Books</h1>
+
+<div ng-controller="MyBooksCtrl">
+  <div ng-show="account">
+    <div class="col-sm-6 col-lg-4" ng-repeat="(key, book) in mybooks" ng-hide="book.sold">
+      <div class="buy-book box book">
+        <div class="pull-right">
+          <div class="box box-small btn-success my-book-button pull-right" ng-click="sellBook(key);">
+            Sold <span class="fa fa-check"></span>
+          </div><br />
+          <button class="box box-small btn-danger my-book-button" ng-click="confirmDelete = true" ng-hide="confirmDelete">
+            Delete <span class="fa fa-remove"></span>
+          </button>
+          <button class="box box-small btn-danger" ng-click="deleteBook(key);" ng-show="confirmDelete">
+            Are you sure?
+          </button>
+        </div>
+        <a ui-sref="pages.book({ hash: key })">
+          <h4 class="h4">{{ book.name }}</h4>
+          <h6 class="h6">{{ book.dep }} {{ book.course }} <span ng-show="book.dep && book.professor">- </span>{{ book.professor }}</h6>
+        </a>
+      </div>
+    </div>
+    <hr class="col-xs-12" />
+    <h3 class="col-xs-12 text-center">Sold Books</h3>
+    <div class="col-sm-6 col-lg-4" ng-repeat="(key, book) in mybooks" ng-show="book.sold">
+      <div class="buy-book box book">
+        <div class="pull-right">
+          <button class="box box-small btn-danger my-book-button" ng-click="confirmDelete = true" ng-hide="confirmDelete">
+            <span class="fa fa-remove"></span>
+          </button>
+          <button class="box box-small btn-danger" ng-click="deleteBook(key);" ng-show="confirmDelete">
+            Are you sure?
+          </button>
+        </div>
+        <h4 class="h4">{{ book.name }}</h4>
+        <h6 class="h6">{{ book.dep }} {{ book.course }} <span ng-show="book.dep && book.professor">- </span>{{ book.professor }}</h6>
+      </div>
+    </div>
+  </div>
+  <div ng-hide="account">
+    <div class="col-sm-6 col-lg-4 col-sm-offset-3 col-lg-offset-4">
+      <div class="buy-book box book">
+        <h4 class="h4">Oh no! You're not logged in.</h4>
+        <h6 class="h6">Click <a ng-click="login()">here</a> to log in.</h6>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,101 @@
+<h1 class="title text-center"><span class="fa fa-money"></span> Sell</h1>
+
+<div ng-controller="SellCtrl">
+  <div ng-show="account">
+    <div class="set-data" ng-hide="preview">
+      <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3" ng-repeat="book in books">
+        <form class="buy-book box form-group col-xs-12">
+          <!--<h4 class="h4"><input type="text" class="form-control" placeholder="Course" /></h4>-->
+          <ui-select ng-model="book.dep" theme="selectize" class="col-xs-6 no-gutter-left" ng-change="book.course = ''">
+            <ui-select-match placeholder="Department">{{$select.selected}}</ui-select-match>
+            <ui-select-choices repeat="dep in depNames | filter: $select.search">
+              <span ng-bind-html="trustAsHtml((dep | highlight: $select.search))"></span>
+            </ui-select-choices>
+          </ui-select>
+
+          <ui-select ng-model="book.course" theme="selectize" class="col-xs-4 col-md-5 no-gutter" ng-disabled="!book.dep">
+            <ui-select-match placeholder="Course">{{$select.selected}}</ui-select-match>
+            <ui-select-choices repeat="course in courses[book.dep] | filter: $select.search">
+              <span ng-bind-html="trustAsHtml((course | highlight: $select.search))"></span>
+            </ui-select-choices>
+          </ui-select>
+          <div class="col-xs-2 col-md-1 no-gutter-right">
+            <button class="box box-small btn-danger pull-right" ng-click="books.splice(books.indexOf(book), 1)"><span class="fa fa-remove"></span></button>
+          </div>
+
+          <div class="col-sm-5 no-gutter-left-sm no-gutter-xs bottom-gutter-xs">
+            <input type="text" ng-model="book.name" class="form-control" placeholder="Book title" />
+          </div>
+          <div class="col-sm-4 no-gutter-left-sm no-gutter-xs bottom-gutter-xs">
+            <input type="text" ng-model="book.professor" class="form-control" placeholder="Professor" />
+          </div>
+          <div class="col-sm-3 no-gutter-right input-group">
+            <div class="input-group-addon">$</div>
+            <input type="text" ng-model="book.price" class="form-control" />
+          </div>
+        </form>
+      </div>
+      <hr class="col-xs-12 no-gutter" />
+
+      <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
+        <button class="box box-small btn-info col-xs-12 text-center bottom-gutter" ng-click="books.push({})">Add new book&nbsp; &nbsp;<span class="fa fa-plus"></span></button>
+
+        <button class="box box-small btn-success col-xs-12 text-center" ng-click="setToPreview()" ng-disabled="noBooks()">Preview &nbsp; <span class="fa fa-check"></span></button>
+      </div>
+    </div>
+    <div class="preview-data" ng-show="preview">
+      <div class="col-xs-12 bottom-gutter">
+        <button class="btn btn-info text-center pull-left" ng-click="preview=false"><span class="fa fa-chevron-left"></span> back</button>
+      </div>
+
+      <div class="col-sm-6 border-right">
+        <div class="col-xs-12" ng-repeat="book in books" ng-show="book.name || book.dep">
+          <div class="buy-book box book">
+            <h4 class="h4">{{ book.name }}</h4>
+            <h6 class="h6">{{ book.dep }} {{ book.course }} <span ng-show="book.dep && book.professor">- </span>{{ book.professor }}</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="facebook-post col-xs-12 no-gutter">
+          <div class="user-bar" ng-show="profilePic">
+            <img class="user-image" src="{{ profilePic }}" alt="">
+            <div class="user-info">
+              <a>{{ displayName }}</a>
+              <br>
+              <div class="fsm fwn fcg">
+                <small>
+                  One minute ago · Cal Poly Books
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="post-body">
+            <p>Selling: </p>
+            <span ng-repeat="book in books">
+              <p>{{ formatBookMessage(book) }}</p>
+            </span>
+          </div>
+        </div>
+
+        <div class="facebook-post col-sm-6 col-xs-12">
+          <input type="checkbox" ng-model="postToFacebook" /><span>&nbsp;Post to&nbsp;</span><a href="https://www.facebook.com/groups/261266090571763/" target="_blank">CP Textbook Exchange</a>
+        </div>
+
+        <div class="col-sm-6 no-gutter-right no-gutter-xs">
+          <button class="facebook-post btn-info col-xs-12" ng-disabled="submitting" ng-click="submitBooks(); submitting = true">
+            {{ submitting ? 'Submitting...' : 'Submit' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ng-hide="account">
+    <div class="col-sm-6 col-lg-4 col-sm-offset-3 col-lg-offset-4">
+      <div class="buy-book box book">
+        <h4 class="h4">Oh no! You're not logged in.</h4>
+        <h6 class="h6">Click <a ng-click="login()">here</a> to log in.</h6>
+      </div>
+    </div>
+  </div>
+</div>

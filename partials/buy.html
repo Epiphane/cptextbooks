@@ -1,0 +1,17 @@
+<h1 class="title text-center"><span class="fa fa-search"></span> Buy</h1>
+<p class="text-center">Search coming soon! Until then, <code>Ctrl/Cmd + F</code> will find you what you need!</p>
+
+<div ng-controller="BuyCtrl">
+	<div ng-hide="bookshelf">
+		<h4>Sorry :( No books available right now.</h4>
+	</div>
+  <div class="col-sm-6 col-lg-4" ng-repeat="(key, book) in bookshelf" ng-hide="book.sold">
+    <div class="buy-book box book">
+      <button class="box box-small btn-info pull-right" ng-click="sendBuyMessage(key, book.user_id)">
+        <span class="fa fa-envelope"></span>
+      </button>
+      <h6 class="h6">{{ book.dep }} {{ book.course }} <span ng-show="book.dep && book.professor">- </span>{{ book.professor }}</h6>
+      <h4 class="h4">{{ book.name }} <span ng-show="book.price"><span ng-show="book.name">(</span>${{ book.price }}<span ng-show="book.name">)</span></span></h4>
+    </div>
+  </div>
+</div>
